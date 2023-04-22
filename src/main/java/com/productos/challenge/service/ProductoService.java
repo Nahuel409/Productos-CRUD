@@ -15,26 +15,15 @@ import java.util.Optional;
 public class ProductoService {
    @Autowired
    ProductoRepository productoRepository;
+
+   //se usa mismo metodo edit/crear..
     public Producto crearProducto(Producto producto){
        return productoRepository.save(producto);
     }
-
     public List<Producto> verProductos(){
         return productoRepository.findAll(Sort.by(Sort.Direction.ASC, "precio"));
     }
-  public Optional<Producto> buscarProductoPorId(Long id){
-      try{
-          return productoRepository.findById(id);
-      }catch(EmptyResultDataAccessException ex){
-          throw new ProductNotFoundException("No se encontro el id");}
-  }
-
-    public void eliminarProducto(Long id){
-        try{
-        productoRepository.deleteById(id);
-    }catch(EmptyResultDataAccessException ex){
-   throw new ProductNotFoundException("No se encontro el id");}
-    }
-
+    public Optional<Producto> buscarProductoPorId(Long id){return  productoRepository.findById(id);}
+    public void eliminarProducto(Long id){productoRepository.deleteById(id);}
 
 }
